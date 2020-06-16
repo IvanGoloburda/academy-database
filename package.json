@@ -1,0 +1,15 @@
+{
+  "name": "academybase",
+  "version": "1.0.0",
+  "description": "Database for Academy",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "JavaScript",
+    "NodeJS"
+  ],
+  "author": "Flaksie",
+  "license": "ISC"
+}

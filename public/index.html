@@ -1,0 +1,89 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academy DataBase</title>
+    <script
+  src="https://code.jquery.com/jquery-1.12.4.js"
+  integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
+  crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="styles.css">   
+</head>
+<body>
+    <center><img src="./шапка.gif" alt="" class="header" srcset=""></center>
+    <h1 class="header_text">ACADEMY INFORMATION</h1>
+    <h1 class="join">JOIN LSPD NOW!</h1>
+    <div class="information">
+        <center><h2 class="h2"><font color="#072760">ТРЕБОВАНИЯ: </font></h2></center>
+        <ol>
+            <li>Ваш возраст должен быть 21 год.</li>
+            <li>Вы должны закончить старшую школу или школу GED.</li>
+            <li>У вас не должно быть судимостей и каких либо стычек с полицией.</li>
+            <li>Вы не должны находится в черному списке департамента.</li>
+            <li>У вас должна быть прекрасная физическая подготовка.</li>
+            <li>Вы должны понимать, что путь, через который вы будете проходить - будет очень сложный и трудоемкий.</li>
+        </ol>
+        <br>
+    </div>
+    <h1 class="header_text">ПРОЦЕСС НАНИМАНИЯ</h1>
+    <div class="block">
+        <p class="hiring">Подача электронного заявления</p>
+        <hr>
+        <p class="hiringtext">Перед тем, как попасть в академию требуется подать электронное заявление в академию.</p>
+        <p class="hiringtext">Для этого зайдите на официальный портал департамента и выбирете нужный раздел.</p>
+        <p class="hiringtext">Далее просто заполните форму и ждите результатов.</p>
+        <img class="step1" src="./Step 1.png" width=100 height=117 />
+        <br><br>
+        <p class="hiring2">Интервью</p>
+        <hr>
+        <p class="hiringtext">После того, как вас одобрили ожидайте проведения интервью</p>
+        <p class="hiringtext">Приготовьтесь к нему как следует, обдумайте возможный вопросы </p>
+        <p class="hiringtext">и ответы на них.</p>
+        <img class="step2" src="./Step 2.png" width=100 height=117 />
+        <br><br>
+        <p class="hiring3">Академия и тест</p>
+        <hr>
+        <p class="hiringtext">В процессе академии вас ожидает множество трудностей,</p>
+        <p class="hiringtext">лишь не многие ее пройдут, но взамен вы получите высокую зарплату,</p>
+        <p class="hiringtext">льготы и прочее. В конце академии вас ожидает тест</p>
+        <p class="hiringtext">, который решит вашу судьбу.</p>
+        <img class="step3" src="./Step 3.png" width=100 height=117 />
+    </div>
+    <h1 class="header_text">СПИСОК ОДОБРЕННЫХ: </h1>
+    <center><table>
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Имя и Фамилия:</th>
+            <th scope="col">ВК:</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table></center>
+    <script>
+        function GetAcademics() {
+            $.ajax({
+                url: '/academics',
+                method: "GET",
+                contentType: 'application/json',
+                success: (data) => {
+                    $.each(data, (index, academic) => {
+                        $('tbody').append(createTable(index + 1, academic.name, academic.vk));
+                    })
+                }
+            })
+        }
+        function createTable(number, name, vk) {
+            return `
+                <tr>
+                    <th>${number}</th>
+                    <th>${name}</th>
+                    <th>${vk}</th>
+                </tr>
+            `;
+        }
+        GetAcademics();
+    </script>
+</body>
+</html>

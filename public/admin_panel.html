@@ -1,0 +1,63 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="styles.css">
+    <script
+    src="https://code.jquery.com/jquery-1.12.4.js"
+    integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
+    crossorigin="anonymous"></script>
+</head>
+<body>
+    <form name="add" id="add">
+        <center><label for="name">Имя:</label></center>
+        <center><input name="name" type="text"></center>
+        <center><label for="vk">ВК:</label></center>
+        <center><input name="vk" type="text"></center>
+        <center><label for="vk">Пароль админ-панели:</label></center>
+        <center><input name="password" type="password"></center>
+        <br>
+        <center><input type="submit" /></center>
+    </form>
+    <script>
+        function Post(name, vk, password) {
+            $.ajax({
+                url: '/add',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    name: name,
+                    vk: vk,
+                    password: password
+                }),
+                success: (data) => {
+                    reset();
+                    if (data) {
+                        $('body').append(success());
+                    } else {
+                        $('body').append(failure());
+                    }
+                }
+            })
+        }
+        function reset() {
+            let form = document.forms["add"];
+            form.reset();
+        }
+        function success() {
+            return `<h1 class="header_text">ОТПРАВЛЕНО</h1>`;
+        }
+        function failure() {
+            return `<h1 class="header_text">ИДИ НАХУЙ МАМКИН ХАКЕР ХА-ХА ПАРОЛЬ НЕ ПРАВИЛЬНЫЙ.</h1>`;
+        }
+        $('#add').submit((e) => {
+            e.preventDefault();
+            let name = document.forms["add"].elements["name"].value;
+            let vk = document.forms["add"].elements["vk"].value;
+            let pass = document.forms["add"].elements["password"].value;
+            Post(name, vk, pass);
+        })
+    </script>
+</body>
+</html>
